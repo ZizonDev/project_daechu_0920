@@ -1,19 +1,35 @@
 package com.daechu.jdbc.vo;
 
 public class CustomerVO {
-    private int user_number;
-    private String user_id;
-    private String user_pw;
-    private String name;
-    private String rrn;
-    private int credit_score_n;
-    private int credit_score_k;
-    private String phone_num;
-    private String email;
-    private String job;
-    private int income;
-    private String bank;
-    private int account;
+    private int user_number;        // 고객 번호
+    private String user_id;         // 고객 ID
+    private String user_pw;         // 고객 PW
+    private String name;            // 고객 이름
+    private String rrn;             // 고객 주민등록번호
+    private int credit_score_n;     // nice 신용 평점
+    private int credit_score_k;     // kcb 신용 평점
+    private String phone_num;       // 고객 전화 번호
+    private String email;           // 고객 e-mail
+    private String job;             // 고객 직업
+    private int income;             // 고객 소득
+    private String bank;            // 고객 주거래 은행
+    private int account;            // 고객 계좌 번호
+
+    public CustomerVO(int user_number, String user_id, String user_pw, String name, String rrn, int credit_score_n, int credit_score_k, String phone_num, String email, String job, int income, String bank, int account) {
+        this.user_number = user_number;
+        this.user_id = user_id;
+        this.user_pw = user_pw;
+        this.name = name;
+        this.rrn = rrn;
+        this.credit_score_n = credit_score_n;
+        this.credit_score_k = credit_score_k;
+        this.phone_num = phone_num;
+        this.email = email;
+        this.job = job;
+        this.income = income;
+        this.bank = bank;
+        this.account = account;
+    }
 
     public int getUser_number() {
         return user_number;

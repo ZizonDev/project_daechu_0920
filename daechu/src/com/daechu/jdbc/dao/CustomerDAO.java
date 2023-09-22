@@ -4,17 +4,21 @@ import com.daechu.jdbc.util.Common;
 import com.daechu.jdbc.vo.CustomerVO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class CustomerDAO {
-    public List<CustomerVO> listCustomer() {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        List<CustomerVO> list = new ArrayList<>();
+    Connection conn = null;
+    Statement stmt = null;
+    PreparedStatement pStmt = null;
+    ResultSet rs = null;
+    static Scanner sc = new Scanner(System.in);
+    List<CustomerVO> list = new ArrayList<>();
+    public List<CustomerVO> CustomerList() {
         try {
             conn = Common.getConnection();
             stmt = conn.createStatement();
@@ -36,21 +40,7 @@ public class CustomerDAO {
                 String bank = rs.getString("BANK");
                 int account = rs.getInt("ACCOUNT");
 
-                CustomerVO vo = new CustomerVO();
-                vo.setUser_number(user_number);
-                vo.setUser_id(user_id);
-                vo.setUser_pw(user_pw);
-                vo.setName(name);
-                vo.setRrn(rrn);
-                vo.setCredit_score_n(credit_score_n);
-                vo.setCredit_score_k(credit_score_k);
-                vo.setPhone_num(phone_num);
-                vo.setEmail(email);
-                vo.setJob(job);
-                vo.setIncome(income);
-                vo.setBank(bank);
-                vo.setAccount(account);
-
+                CustomerVO vo = new CustomerVO(user_number, user_id, user_pw, name, rrn, credit_score_n, credit_score_k, phone_num, email, job, income, bank, account);
                 list.add(vo);
             }
             Common.close(rs);
@@ -61,4 +51,32 @@ public class CustomerDAO {
         }
         return list;
     }
+
+    public void userSignUp() {
+        System.out.println("회원 정보를 입력하세요.");
+        System.out.print("ID : ");
+        String user_id = sc.next();
+        System.out.print("PW : ");
+        String user_pw = sc.next();
+        System.out.print("이름 : ");
+        String name = sc.next();
+        System.out.print("주민등록번호 : ");
+        String rrn = sc.next();
+        System.out.print("NICE 신용평가점수 : ");
+        int credit_score_n = sc.nextInt();
+        System.out.print("KCB 신용평가점수 : ");
+        int credit_score_k = sc.nextInt();
+        System.out.print("전화번호 : ");
+        String phone_num = sc.next();
+        System.out.print("이메일 : ");
+        String email = sc.next();
+        System.out.print("직업 : ");
+        String job = sc.next();
+        System.out.print("소득(백만 원) : ");
+        int income = sc.nextInt();
+        System.out.print("주거래은행 : ");
+        String bank = sc.next();
+        System.out.print();
+    }
+
 }

@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoanProductDAO {
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
     public List<LoanProductVO> listLoanProduct() {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
         List<LoanProductVO> list = new ArrayList<>();
         try{
             conn = Common.getConnection();
@@ -31,15 +32,7 @@ public class LoanProductDAO {
                 String job = rs.getString("JOB");
                 String detail = rs.getString("DETAIL");
 
-                LoanProductVO vo = new LoanProductVO();
-                vo.setProduct_number(product_number);
-                vo.setProduct_name(product_name);
-                vo.setBank_name(bank_name);
-                vo.setRate(rate);
-                vo.setMax_loan(max_loan);
-                vo.setMax_month(max_month);
-                vo.setJob(job);
-                vo.setDetail(detail);
+                LoanProductVO vo = new LoanProductVO(product_number, product_name, bank_name, rate, max_loan, max_month, job, detail);
 
                 list.add(vo);
             }
@@ -51,4 +44,103 @@ public class LoanProductDAO {
         }
         return list;
     }
+
+    public List<LoanProductVO> MinRateSort() {
+        List<LoanProductVO> list = new ArrayList<>();
+        try{
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM LOAN_PRODUCT WHERE JOB LIKE ? ORDER BY RATE;";
+            rs = stmt.executeQuery(query);
+
+            while(rs.next()) {
+                int product_number = rs.getInt("PRODUCT_NUMBER");
+                String product_name = rs.getString("PRODUCT_NAME");
+                String bank_name = rs.getString("BANK_NAME");
+                int rate = rs.getInt("RATE");
+                int max_loan = rs.getInt("MAX_LOAN");
+                int max_month = rs.getInt("MAX_MONTH");
+                String job = rs.getString("JOB");
+                String detail = rs.getString("DETAIL");
+
+                LoanProductVO vo = new LoanProductVO(product_number, product_name, bank_name, rate, max_loan, max_month, job, detail);
+
+                list.add(vo);
+            }
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<LoanProductVO> MaxLoanSort() {
+        List<LoanProductVO> list = new ArrayList<>();
+        try{
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM LOAN_PRODUCT WHERE JOB LIKE ? ORDER BY DESC MAX_LOAN;";
+            rs = stmt.executeQuery(query);
+
+            while(rs.next()) {
+                int product_number = rs.getInt("PRODUCT_NUMBER");
+                String product_name = rs.getString("PRODUCT_NAME");
+                String bank_name = rs.getString("BANK_NAME");
+                int rate = rs.getInt("RATE");
+                int max_loan = rs.getInt("MAX_LOAN");
+                int max_month = rs.getInt("MAX_MONTH");
+                String job = rs.getString("JOB");
+                String detail = rs.getString("DETAIL");
+
+                LoanProductVO vo = new LoanProductVO(product_number, product_name, bank_name, rate, max_loan, max_month, job, detail);
+
+                list.add(vo);
+            }
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<LoanProductVO> MaxMonthSort() {
+        List<LoanProductVO> list = new ArrayList<>();
+        try{
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            String query = "SELECT * FROM LOAN_PRODUCT WHERE JOB LIKE ? ORDER BY DESC MAX_MONTH;";
+            rs = stmt.executeQuery(query);
+
+            while(rs.next()) {
+                int product_number = rs.getInt("PRODUCT_NUMBER");
+                String product_name = rs.getString("PRODUCT_NAME");
+                String bank_name = rs.getString("BANK_NAME");
+                int rate = rs.getInt("RATE");
+                int max_loan = rs.getInt("MAX_LOAN");
+                int max_month = rs.getInt("MAX_MONTH");
+                String job = rs.getString("JOB");
+                String detail = rs.getString("DETAIL");
+
+                LoanProductVO vo = new LoanProductVO(product_number, product_name, bank_name, rate, max_loan, max_month, job, detail);
+
+                list.add(vo);
+            }
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public void LoanProductPrint(List<LoanProductVO> list) {
+
+    }
+
+
 }

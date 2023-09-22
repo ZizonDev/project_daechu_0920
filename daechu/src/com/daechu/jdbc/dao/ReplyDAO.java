@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReplyDAO {
-    public List<ReplyVO> listReply() {
+    public List<ReplyVO> SelectReply() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -27,7 +27,7 @@ public class ReplyDAO {
                 String comment_con = rs.getString("COMMENT_CON");
                 String user_id = rs.getString("USER_ID");
 
-                ReplyVO vo = new ReplyVO();
+                ReplyVO vo = new ReplyVO(comment_num, wrt_num, comment_con, user_id);
                 vo.setComment_num(comment_num);
                 vo.setWrt_num(wrt_num);
                 vo.setComment_con(comment_con);

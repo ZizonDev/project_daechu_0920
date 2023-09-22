@@ -3,12 +3,21 @@ package com.daechu.jdbc.vo;
 import java.sql.Date;
 
 public class WriteVO {
-    private int wrt_num;
-    private String board_name;
-    private String title;
-    private String contents;
-    private Date wrt_date;
-    private String user_id;
+    private int wrt_num;            // 작성 번호
+    private String board_name;      // 게시판 이름
+    private String title;           // 게시글 제목
+    private String contents;        // 게시글 내용
+    private Date wrt_date;          // 작성 날짜
+    private String user_id;         // 고객 ID
+
+    public WriteVO(int wrt_num, String board_name, String title, String contents, Date wrt_date, String user_id) {
+        this.wrt_num = wrt_num;
+        this.board_name = board_name;
+        this.title = title;
+        this.contents = contents;
+        this.wrt_date = wrt_date;
+        this.user_id = user_id;
+    }
 
     public int getWrt_num() {
         return wrt_num;

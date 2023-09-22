@@ -4,15 +4,17 @@ import com.daechu.jdbc.util.Common;
 import com.daechu.jdbc.vo.BoardVO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO {
-    public List<BoardVO> listBoard() {
+    public List<BoardVO> SelectBoard() {
         Connection conn = null;
         Statement stmt = null;
+        PreparedStatement pStmt = null;
         ResultSet rs = null;
         List<BoardVO> list = new ArrayList<>();
         try {
@@ -25,7 +27,7 @@ public class BoardDAO {
                 int board_number = rs.getInt("BOARD_NUMBER");
                 String board_name = rs.getString("BOARD_NAME");
 
-                BoardVO vo = new BoardVO();
+                BoardVO vo = new BoardVO(board_number, board_name);
                 vo.setBoard_number(board_number);
                 vo.setBoard_name(board_name);
 

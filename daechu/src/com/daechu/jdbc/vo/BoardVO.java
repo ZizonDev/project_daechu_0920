@@ -1,8 +1,13 @@
 package com.daechu.jdbc.vo;
 
 public class BoardVO {
-    private int board_number;
-    private String board_name;
+    private int board_number;       // 게시판 번호
+    private String board_name;      // 게시판 이름
+
+    public BoardVO(int board_number, String board_name) {
+        this.board_number = board_number;
+        this.board_name = board_name;
+    }
 
     public int getBoard_number() {
         return board_number;

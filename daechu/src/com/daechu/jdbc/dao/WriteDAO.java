@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WriteDAO {
-    public List<WriteVO> listWrite() {
+    public List<WriteVO> SelectWrite() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -30,14 +30,7 @@ public class WriteDAO {
                 Date wrt_date = rs.getDate("WRT_DATE");
                 String user_id = rs.getString("USER_ID");
 
-                WriteVO vo = new WriteVO();
-                vo.setWrt_num(wrt_num);
-                vo.setBoard_name(board_name);
-                vo.setTitle(title);
-                vo.setContents(contents);
-                vo.setWrt_date(wrt_date);
-                vo.setUser_id(user_id);
-
+                WriteVO vo = new WriteVO(wrt_num, board_name, title, contents, wrt_date, user_id);
                 list.add(vo);
             }
             Common.close(rs);

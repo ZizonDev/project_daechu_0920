@@ -1,14 +1,25 @@
 package com.daechu.jdbc.vo;
 
 public class LoanInfoVO {
-    private int loan_number;
-    private int user_number;
-    private String name;
-    private int product_number;
-    private String product_name;
-    private int rate;
-    private int max_loan;
-    private int period;
+    private int loan_number;            // 대출 실행 건수 번호
+    private int user_number;            // 고객 번호
+    private String name;                // 고객 이름
+    private int product_number;         // 대출 상품 번호
+    private String product_name;        // 대출 상품 이름
+    private int rate;                   // 대출 상품 금리
+    private int max_loan;               // 최대 대출 한도
+    private int period;                 // 대출 기간
+
+    public LoanInfoVO(int loan_number, int user_number, String name, int product_number, String product_name, int rate, int max_loan, int period) {
+        this.loan_number = loan_number;
+        this.user_number = user_number;
+        this.name = name;
+        this.product_number = product_number;
+        this.product_name = product_name;
+        this.rate = rate;
+        this.max_loan = max_loan;
+        this.period = period;
+    }
 
     public int getLoan_number() {
         return loan_number;

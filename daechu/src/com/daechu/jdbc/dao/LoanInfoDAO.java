@@ -2,19 +2,23 @@ package com.daechu.jdbc.dao;
 
 import com.daechu.jdbc.util.Common;
 import com.daechu.jdbc.vo.LoanInfoVO;
+import com.daechu.jdbc.vo.LoanProductVO;
+
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoanInfoDAO {
-    public List<LoanInfoVO> listLoanInfo() {
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        List<LoanInfoVO> list = new ArrayList<>();
+    Connection conn = null;
+    Statement stmt = null;
+    PreparedStatement pStmt = null;
+    ResultSet rs = null;
+    List<LoanInfoVO> list = new ArrayList<>();
+    public List<LoanInfoVO> SelectLoanInfo() {
         try{
             conn = Common.getConnection();
             stmt = conn.createStatement();
@@ -31,15 +35,7 @@ public class LoanInfoDAO {
                 int max_loan = rs.getInt("MAX_LOAN");
                 int period = rs.getInt("PERIOD");
 
-                LoanInfoVO vo = new LoanInfoVO();
-                vo.setLoan_number(loan_number);
-                vo.setUser_number(user_number);
-                vo.setName(name);
-                vo.setProduct_number(product_number);
-                vo.setProduct_name(product_name);
-                vo.setRate(rate);
-                vo.setMax_loan(max_loan);
-                vo.setPeriod(period);
+                LoanInfoVO vo = new LoanInfoVO(loan_number, user_number, name, product_number, product_name, rate, max_loan, period);
 
                 list.add(vo);
             }
@@ -50,5 +46,19 @@ public class LoanInfoDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public void newLoanInfo() {
+        String query = "INSERT INTO LOAN_INFO VALUES(LOAN_NUMBER_SEQ.NEXTVAL, USER_NUMBER_SEQ.NEXTVAL, ?, PRODUCT_NUMBER_SEQ.NEXTVAL, ?, ?, ?, ?)";
+        try {
+            conn = Common.getConnection();
+            pStmt = conn.prepareStatement(query);
+            pStmt.setString(1, name);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        Common.close(pStmt);
+        Common.close(conn);
+
     }
 }
